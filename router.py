@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -15,7 +16,7 @@ def hello_world():
 @app.route('/bus/<router_name>/stop/<stop_id>')
 def query_stop(router_name, stop_id):
     direction = request.args.get('direction', '0')
-
+    router_name = router_name.encode('utf-8')
     bus = Bus()
     res = bus.query_stop(router_name, direction, stop_id)
 
@@ -25,7 +26,7 @@ def query_stop(router_name, stop_id):
 @app.route('/bus/<router_name>')
 def query_router(router_name):
     direction = request.args.get('direction', '0')
-
+    router_name = router_name.encode('utf-8')
     bus = Bus()
     routers = bus.query_router(router_name, direction)
 
@@ -35,7 +36,7 @@ def query_router(router_name):
 @app.route('/bus/<router_name>/details')
 def query_router_details(router_name):
     direction = request.args.get('direction', '0')
-
+    router_name = router_name.encode('utf-8')
     bus = Bus()
     router_details = bus.query_router_details(router_name, direction)
 
@@ -63,3 +64,5 @@ def handle_invalid_parameter(e):
     response = jsonify(e.to_dict())
     response.status_code = e.status_code
     return response
+
+app.run(port=8888)

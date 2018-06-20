@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 class InvalidParameterException(Exception):
     def __init__(self, error, error_msg, status_code=None, payload=None):
         Exception.__init__(self)
